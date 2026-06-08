@@ -1,0 +1,25 @@
+@echo off
+chcp 65001 >nul
+title 微信AI机器人 (Chrome+DeepSeek)
+
+echo ============================================
+echo   启动 Chrome CDP 调试模式...
+echo ============================================
+
+REM 启动 Chrome 远程调试（如果还没启动）
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="%TEMP%\chrome_cdp_profile" --no-first-run --no-default-browser-check >nul 2>&1
+timeout /t 4 /nobreak >nul
+
+echo ============================================
+echo   启动 AI 机器人...
+echo ============================================
+
+REM 设置环境变量
+set "PATH=C:\Users\big\wechat-bot;%PATH%"
+set ANTHROPIC_AUTH_TOKEN=sk-76c3600cdaec4c3d8ab34044ddbd74d8
+set ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+set ANTHROPIC_MODEL=deepseek-chat
+
+cc-connect --force
+
+pause
